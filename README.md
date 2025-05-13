@@ -7,7 +7,7 @@ body: {
   "nombre": "Juan Pérez",
   "correo": "juan@mail.com",
   "contraseña": "123456",
-  "permisos": ["crear_libros", "modificar_libros", "inhabilitar_libros"]
+  "permisos": ["crear_libros", "modificar_libros", "inhabilitar_libros","modificar_usuarios", "modificar_permiso"]
 }
 nota: Los permisos puestos son los que puede llegar a tener un usuario, pero al registrarlo no se le puede dar a ningun usuario ningun tipo de permiso.
 iniciar sesion:
