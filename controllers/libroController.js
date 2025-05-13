@@ -7,9 +7,35 @@ exports.crear = async (req, res) => {
 };
 
 exports.buscar = async (req, res) => {
-  const filtros = { ...req.query, inhabilitado: false };
-  const libros = await Libro.find(filtros);
-  res.json(libros);
+   try {
+    const { titulo, autor, año, editorial,  disponiblidad} = req.query;
+
+    // Construir filtros dinámicamente
+    const filtros = { inhabilitado: false };
+
+    if (titulo && disponiblidad === 'true') {
+      // Búsqueda parcial (case insensitive)
+      filtros.titulo = { $regex: titulo, $options: 'i' };
+    }
+
+    if (autor && disponiblidad === 'true') {
+      filtros.autor = { $regex: autor, $options: 'i' };
+    }
+
+    if (año && disponiblidad === 'true') {
+      filtros.año = año; // Puede ser más elaborado si quieres rangos
+    }
+    if (editorial && disponiblidad === 'true') {
+      // Búsqueda parcial (case insensitive)
+      filtros.editorial = { $regex: editorial, $options: 'i' };
+    }
+
+    const libros = await Libro.find(filtros);
+    res.json(libros);
+
+  } catch (error) {
+    res.status(500).json({ error: 'Error al buscar libros' });
+  }
 };
 
 exports.buscarPorId = async (req, res) => {

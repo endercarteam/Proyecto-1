@@ -4,7 +4,13 @@ const bcrypt = require('bcrypt');
 
 exports.registrar = async (req, res) => {
   try {
-    const nuevoUsuario = new Usuario(req.body);
+    const { nombre, correo, contraseña } = req.body;
+    const nuevoUsuario = new Usuario({
+      nombre,
+      correo, 
+      contraseña,
+      permisos:[]
+    });
     await nuevoUsuario.save();
     res.status(201).json({ mensaje: 'Usuario registrado' });
   } catch (error) {
